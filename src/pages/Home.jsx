@@ -96,6 +96,9 @@ export default function Home() {
           articleCount={articles.length}
         />
 
+        {/* Feed Sources Panel */}
+        <FeedSourcesPanel />
+
         {/* Filters */}
         <div className="space-y-4 mb-8">
           <CategoryFilter
