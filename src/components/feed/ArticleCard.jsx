@@ -1,5 +1,5 @@
-import React from "react";
-import { ExternalLink, Clock, Tag } from "lucide-react";
+import React, { useState } from "react";
+import { ExternalLink, Clock, Tag, Globe } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 
@@ -23,17 +23,28 @@ const PLACEHOLDER_GRADIENTS = [
   "from-fuchsia-600/30 to-purple-900/30",
 ];
 
-export default function ArticleCard({ article, index }) {
+function getSourceLogo(article) {
+  const url = article.source_url || article.link;
+  if (url) {
+    try {
+      const domain = new URL(url).hostname;
+      return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+    } catch (_) {}
+  }
+  return null;
+}
+
+export default function ArticleCard({ article, index, onClick }) {
+  const [logoError, setLogoError] = useState(false);
   const pubDate = article.pub_date ? new Date(article.pub_date) : null;
   const gradientIdx = (index || 0) % PLACEHOLDER_GRADIENTS.length;
   const hasImage = article.image_url && article.image_url.length > 5;
+  const logoUrl = getSourceLogo(article);
 
   return (
-    <a
-      href={article.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block"
+    <div
+      className="group block cursor-pointer"
+      onClick={onClick}
     >
       <div className="relative bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl overflow-hidden transition-all duration-500 hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1">
         {/* Image */}
@@ -57,10 +68,20 @@ export default function ArticleCard({ article, index }) {
           </div>
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
-          
-          {/* Source badge */}
-          <div className="absolute top-3 left-3">
-            <span className="text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-sm text-white/80 px-2.5 py-1 rounded-full border border-white/10">
+
+          {/* Source badge with logo */}
+          <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/10">
+            {logoUrl && !logoError ? (
+              <img
+                src={logoUrl}
+                alt=""
+                className="w-4 h-4 rounded-sm object-contain bg-white/10"
+                onError={() => setLogoError(true)}
+              />
+            ) : (
+              <Globe className="w-3 h-3 text-white/50" />
+            )}
+            <span className="text-[10px] font-bold uppercase tracking-wider text-white/80">
               {article.source}
             </span>
           </div>
@@ -81,7 +102,7 @@ export default function ArticleCard({ article, index }) {
           <h3 className="text-base font-semibold text-slate-100 leading-snug mb-2 line-clamp-2 group-hover:text-indigo-300 transition-colors duration-300">
             {article.title}
           </h3>
-          
+
           {article.description && (
             <p className="text-sm text-slate-400 line-clamp-2 mb-4 leading-relaxed">
               {article.description}
@@ -95,9 +116,9 @@ export default function ArticleCard({ article, index }) {
                 {pubDate ? format(pubDate, "MMM d, yyyy") : "Recent"}
               </span>
             </div>
-            
+
             <div className="flex items-center gap-1 text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="text-xs font-medium">Read</span>
+              <span className="text-xs font-medium">Expand</span>
               <ExternalLink className="w-3 h-3" />
             </div>
           </div>
@@ -118,6 +139,6 @@ export default function ArticleCard({ article, index }) {
           )}
         </div>
       </div>
-    </a>
+    </div>
   );
 }
