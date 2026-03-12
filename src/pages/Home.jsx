@@ -153,6 +153,8 @@ export default function Home() {
         )}
       </div>
 
+      <ArticleModal article={selectedArticle} onClose={() => setSelectedArticle(null)} />
+
       {/* Footer */}
       <div className="border-t border-slate-800/50 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
