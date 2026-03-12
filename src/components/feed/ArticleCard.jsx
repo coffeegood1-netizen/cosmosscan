@@ -64,7 +64,16 @@ export default function ArticleCard({ article, index, onClick }) {
               hasImage ? "hidden" : "flex"
             )}
           >
-            <div className="text-4xl opacity-30">🧠</div>
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt={article.source}
+                className="w-16 h-16 object-contain rounded-xl bg-white/10 p-2"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+            ) : (
+              <div className="text-4xl opacity-30">🧠</div>
+            )}
           </div>
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
