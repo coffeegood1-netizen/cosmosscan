@@ -10,6 +10,7 @@ import SortControls from "../components/feed/SortControls";
 import ArticleCard from "../components/feed/ArticleCard";
 import EmptyState from "../components/feed/EmptyState";
 import FeedSourcesPanel from "../components/feed/FeedSourcesPanel";
+import AnimatedBackground from "../components/feed/AnimatedBackground";
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("all");
