@@ -11,6 +11,7 @@ import ArticleCard from "../components/feed/ArticleCard";
 import EmptyState from "../components/feed/EmptyState";
 import FeedSourcesPanel from "../components/feed/FeedSourcesPanel";
 import AnimatedBackground from "../components/feed/AnimatedBackground";
+import ArticleModal from "../components/feed/ArticleModal";
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("all");
