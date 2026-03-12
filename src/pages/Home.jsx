@@ -84,7 +84,8 @@ export default function Home() {
   const lastUpdated = articles.length > 0 ? articles[0]?.created_date : null;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen text-white relative">
+      <AnimatedBackground />
       {/* Marquee */}
       <Marquee articles={articles} />
 
