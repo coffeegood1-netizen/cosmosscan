@@ -18,6 +18,7 @@ export default function Home() {
   const [sortBy, setSortBy] = useState("date_desc");
   const [searchQuery, setSearchQuery] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState(null);
   const queryClient = useQueryClient();
 
   const { data: articles = [], isLoading } = useQuery({
