@@ -92,7 +92,7 @@ export default function Home() {
       <Marquee articles={articles} />
 
       {/* Main content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-black/50 rounded-2xl my-4 backdrop-blur-sm">
         <FeedHeader
           lastUpdated={lastUpdated}
           onRefresh={handleRefresh}
