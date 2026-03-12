@@ -61,7 +61,7 @@ export default function FeedSourcesPanel() {
       >
         <div className="flex items-center gap-3">
           <Rss className="w-4 h-4 text-indigo-400" />
-          <span className="text-sm font-semibold text-slate-200">Active RSS Sources</span>
+          <span className="text-sm font-semibold text-white">Active RSS Sources</span>
           <span className="text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/20 px-2 py-0.5 rounded-full">
             {FEEDS.length} feeds
           </span>
@@ -84,7 +84,7 @@ export default function FeedSourcesPanel() {
                     <span className={`text-xs font-bold uppercase tracking-wider ${style.text}`}>
                       {style.label}
                     </span>
-                    <span className="text-xs text-slate-600">({feeds.length})</span>
+                    <span className="text-xs text-white/60">({feeds.length})</span>
                   </div>
                   <div className="space-y-2">
                     {feeds.map((feed) => (
@@ -93,7 +93,7 @@ export default function FeedSourcesPanel() {
                         className={cn("rounded-xl border px-4 py-3", style.bg)}
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <span className="text-sm font-medium text-slate-200">{feed.source}</span>
+                          <span className="text-sm font-medium text-white">{feed.source}</span>
                           <a
                             href={feed.url}
                             target="_blank"
@@ -104,7 +104,7 @@ export default function FeedSourcesPanel() {
                             <ExternalLink className="w-3.5 h-3.5" />
                           </a>
                         </div>
-                        <p className="text-xs text-slate-500 mt-1 leading-relaxed">{feed.description}</p>
+                        <p className="text-xs text-white/70 mt-1 leading-relaxed">{feed.description}</p>
                       </div>
                     ))}
                   </div>

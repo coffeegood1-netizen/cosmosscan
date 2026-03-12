@@ -14,12 +14,12 @@ export default function SortControls({ sortBy, onSortChange, searchQuery, onSear
     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
       {/* Search */}
       <div className="relative flex-1 max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60" />
         <Input
           placeholder="Search articles..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-10 bg-slate-900/60 border-slate-700/50 text-slate-200 placeholder:text-slate-600 rounded-full focus:border-indigo-500/50 focus:ring-indigo-500/20"
+          className="pl-10 bg-slate-900/60 border-slate-700/50 text-white placeholder:text-white/40 rounded-full focus:border-indigo-500/50 focus:ring-indigo-500/20"
         />
       </div>
 
@@ -33,7 +33,7 @@ export default function SortControls({ sortBy, onSortChange, searchQuery, onSear
               "px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300",
               sortBy === key
                 ? "bg-indigo-600/30 text-indigo-300 border border-indigo-500/30"
-                : "text-slate-500 hover:text-slate-300"
+                : "text-white/60 hover:text-white"
             )}
           >
             {label}

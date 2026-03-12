@@ -22,13 +22,13 @@ export default function FeedHeader({ lastUpdated, onRefresh, isRefreshing, artic
               <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
                 Consciousness Feed
               </h1>
-              <p className="text-sm text-slate-400 mt-0.5">
+              <p className="text-sm text-white/80 mt-0.5">
                 RSS aggregator for consciousness, remote viewing & frontier research
               </p>
             </div>
           </div>
           
-          <div className="flex items-center gap-4 text-xs text-slate-500 ml-15">
+          <div className="flex items-center gap-4 text-xs text-white/70 ml-15">
             {lastUpdated && (
               <span>Updated {format(new Date(lastUpdated), "MMM d, h:mm a")}</span>
             )}
