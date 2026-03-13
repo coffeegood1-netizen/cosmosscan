@@ -46,12 +46,10 @@ export default function Marquee({ articles, onArticleClick }) {
           }}
         >
           {items.map((article, idx) => (
-            <a
+            <button
               key={`${article.id || idx}-${idx}`}
-              href={article.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 group shrink-0 px-3"
+              onClick={() => onArticleClick && onArticleClick(article)}
+              className="flex items-center gap-3 group shrink-0 px-3 cursor-pointer"
             >
               <span className={`text-[10px] font-bold uppercase tracking-wider ${CATEGORY_COLORS[article.category] || 'text-slate-400'}`}>
                 {article.source}
