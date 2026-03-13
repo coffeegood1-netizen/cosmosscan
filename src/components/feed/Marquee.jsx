@@ -59,7 +59,7 @@ export default function Marquee({ articles, onArticleClick }) {
               </span>
               <ExternalLink className="w-3 h-3 text-slate-600 group-hover:text-indigo-400 transition-colors shrink-0" />
               <span className="text-slate-700">•</span>
-            </a>
+            </button>
           ))}
         </div>
       </div>
