@@ -99,6 +99,23 @@ export default function Home() {
   return (
     <div className="min-h-screen text-white relative">
       <AnimatedBackground />
+
+      {/* Glenn Wheaton Quote */}
+      <div className="text-center py-4">
+        <p className="text-sm italic text-indigo-300/80 tracking-wide animate-quote-fade">
+          "Keep your wits about you." — Glenn Wheaton
+        </p>
+      </div>
+      <style>{`
+        @keyframes quoteFade {
+          0%, 100% { opacity: 0; }
+          20%, 80% { opacity: 1; }
+        }
+        .animate-quote-fade {
+          animation: quoteFade 30s ease-in-out infinite;
+        }
+      `}</style>
+
       {/* Marquee */}
       <Marquee articles={articles} onArticleClick={setSelectedArticle} />
 
