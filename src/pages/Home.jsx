@@ -154,13 +154,15 @@ export default function Home() {
         )}
 
         {/* Article grid */}
-        {filteredAndSorted.length > 0 && (
+        {paginatedArticles.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredAndSorted.map((article, idx) => (
+            {paginatedArticles.map((article, idx) => (
               <ArticleCard key={article.id || idx} article={article} index={idx} onClick={() => setSelectedArticle(article)} />
             ))}
           </div>
         )}
+
+        <FeedPagination currentPage={currentPage} totalPages={totalPages} onPageChange={(p) => { setCurrentPage(p); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
       </div>
 
       <ArticleModal article={selectedArticle} onClose={() => setSelectedArticle(null)} />
