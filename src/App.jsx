@@ -6,6 +6,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Home from './pages/Home';
+import Archive from './pages/Archive';
 import { Navigate } from 'react-router-dom';
 
 const AuthenticatedApp = () => {
