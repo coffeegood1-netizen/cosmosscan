@@ -61,19 +61,24 @@ export default function FeedHeader({ lastUpdated, onRefresh, isRefreshing, artic
           </div>
         </div>
 
-        <Button
-          onClick={onRefresh}
-          disabled={isRefreshing}
-          className="bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 rounded-full px-5 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10"
-          variant="outline"
-        >
-          {isRefreshing ? (
-            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-          ) : (
-            <RefreshCw className="w-4 h-4 mr-2" />
-          )}
-          {isRefreshing ? "Fetching feeds..." : "Refresh Feeds"}
-        </Button>
+        <div className="flex flex-col items-end gap-2">
+          <p className="text-sm italic text-indigo-300/70 tracking-wide hidden md:block">
+            "Keep your wits about you." — Glenn Wheaton
+          </p>
+          <Button
+            onClick={onRefresh}
+            disabled={isRefreshing}
+            className="bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 rounded-full px-5 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10"
+            variant="outline"
+          >
+            {isRefreshing ? (
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            ) : (
+              <RefreshCw className="w-4 h-4 mr-2" />
+            )}
+            {isRefreshing ? "Fetching feeds..." : "Refresh Feeds"}
+          </Button>
+        </div>
       </div>
     </div>
   );
