@@ -16,23 +16,36 @@ const GENRES = [
 const API_BASE = "https://de1.api.radio-browser.info";
 
 async function fetchStations(tag) {
-  const tagMap = {
-    jazz: "jazz",
-    classical: "classical",
-    news: "news,talk news",
-    science: "science,education",
-    paranormal: "paranormal,coast to coast,mystery,supernatural",
-    ambient: "ambient,chillout",
-    blues: "blues",
+  const tagSearches = {
+    jazz: { tags: ["jazz"] },
+    classical: { tags: ["classical"] },
+    news: { tags: ["news", "talk news"] },
+    science: { tags: ["science", "education"] },
+    paranormal: { tags: ["paranormal", "mystery", "supernatural"] },
+    ambient: { tags: ["ambient", "chillout"] },
+    blues: { tags: ["blues"] },
+    coast: { tags: ["coast to coast", "art bell", "paranormal talk"], names: ["coast to coast", "art bell", "george noory", "midnight in the desert", "ground zero", "darkness radio", "into the parabnormal", "fade to black"] },
   };
 
-  const searchTag = tagMap[tag] || tag;
-  const tags = searchTag.split(",");
-  
+  const config = tagSearches[tag] || { tags: [tag] };
   let allStations = [];
-  for (const t of tags) {
+
+  // Search by tags
+  for (const t of (config.tags || [])) {
     const res = await fetch(
-      `${API_BASE}/json/stations/bytag/${encodeURIComponent(t.trim())}?limit=15&order=clickcount&reverse=true&hidebroken=true`,
+      `${API_BASE}/json/stations/bytag/${encodeURIComponent(t.trim())}?limit=20&order=clickcount&reverse=true&hidebroken=true`,
+      { headers: { "User-Agent": "ConsciousnessFeed/1.0" } }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      allStations = [...allStations, ...data];
+    }
+  }
+
+  // Search by name (for Coast to Coast and similar)
+  for (const n of (config.names || [])) {
+    const res = await fetch(
+      `${API_BASE}/json/stations/byname/${encodeURIComponent(n.trim())}?limit=10&order=clickcount&reverse=true&hidebroken=true`,
       { headers: { "User-Agent": "ConsciousnessFeed/1.0" } }
     );
     if (res.ok) {
@@ -47,7 +60,7 @@ async function fetchStations(tag) {
     if (seen.has(s.stationuuid)) return false;
     seen.add(s.stationuuid);
     return s.lastcheckok === 1 && s.url_resolved;
-  }).slice(0, 20);
+  }).slice(0, 30);
 }
 
 export default function RadioPlayer() {
