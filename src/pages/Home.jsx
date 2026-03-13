@@ -117,14 +117,14 @@ export default function Home() {
         <div className="space-y-4 mb-8">
           <CategoryFilter
             activeCategory={activeCategory}
-            onCategoryChange={setActiveCategory}
+            onCategoryChange={handleCategoryChange}
             articleCounts={articleCounts}
           />
           <SortControls
             sortBy={sortBy}
             onSortChange={setSortBy}
             searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
+            onSearchChange={handleSearchChange}
           />
         </div>
 
