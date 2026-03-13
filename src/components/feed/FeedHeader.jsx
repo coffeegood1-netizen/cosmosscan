@@ -18,10 +18,10 @@ export default function FeedHeader({ lastUpdated, onRefresh, isRefreshing, artic
           <div className="flex items-center gap-3 mb-3">
             <div className="relative">
               <div
-                className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 cursor-pointer hover:scale-110 transition-transform duration-200"
+                className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg shadow-indigo-500/30 cursor-pointer hover:scale-110 transition-transform duration-200"
                 onClick={() => setShowDog(!showDog)}
               >
-                <Brain className="w-6 h-6 text-white" />
+                <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b34f15f21ccf40e695b356/f8758b963_generated_image.png" alt="Logo" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-slate-950 animate-pulse" />
 
