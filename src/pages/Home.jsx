@@ -167,6 +167,7 @@ export default function Home() {
       </div>
 
       <ArticleModal article={selectedArticle} onClose={() => setSelectedArticle(null)} />
+      <RadioPlayer />
 
       {/* Footer */}
       <div className="border-t border-slate-800/50 mt-16">
