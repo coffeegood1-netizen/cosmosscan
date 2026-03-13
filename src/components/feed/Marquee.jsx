@@ -12,7 +12,7 @@ const CATEGORY_COLORS = {
   general: "text-slate-400",
 };
 
-export default function Marquee({ articles }) {
+export default function Marquee({ articles, onArticleClick }) {
   const [isPaused, setIsPaused] = useState(false);
   const featured = articles.filter(a => a.is_featured).slice(0, 20);
 
