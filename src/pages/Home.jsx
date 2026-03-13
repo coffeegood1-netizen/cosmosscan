@@ -87,6 +87,12 @@ export default function Home() {
     return result;
   }, [articles, activeCategory, sortBy, searchQuery]);
 
+  const totalPages = Math.ceil(filteredAndSorted.length / ARTICLES_PER_PAGE);
+  const paginatedArticles = filteredAndSorted.slice((currentPage - 1) * ARTICLES_PER_PAGE, currentPage * ARTICLES_PER_PAGE);
+
+  const handleCategoryChange = (cat) => { setActiveCategory(cat); setCurrentPage(1); };
+  const handleSearchChange = (q) => { setSearchQuery(q); setCurrentPage(1); };
+
   const lastUpdated = articles.length > 0 ? articles[0]?.created_date : null;
 
   return (
