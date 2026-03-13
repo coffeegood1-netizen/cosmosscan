@@ -173,6 +173,9 @@ export default function Home() {
           <p className="text-xs text-slate-600">
             Consciousness Feed — Aggregating frontier research from {articleCounts.total || 0} articles across 16+ sources
           </p>
+          <Link to="/Archive" className="text-xs text-indigo-400 hover:text-indigo-300 mt-2 inline-block">
+            Browse full archive →
+          </Link>
         </div>
       </div>
     </div>
