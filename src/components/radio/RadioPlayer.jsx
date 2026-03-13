@@ -3,6 +3,7 @@ import { Play, Pause, Volume2, VolumeX, Radio, ChevronDown, Loader2, SkipForward
 import { cn } from "@/lib/utils";
 
 const GENRES = [
+  { id: "coast", label: "Coast to Coast", tag: "coast", icon: "🌙" },
   { id: "jazz", label: "Jazz", tag: "jazz", icon: "🎷" },
   { id: "classical", label: "Classical", tag: "classical", icon: "🎻" },
   { id: "news", label: "News", tag: "news", icon: "📰" },
