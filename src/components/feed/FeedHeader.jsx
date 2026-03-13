@@ -8,6 +8,13 @@ const DOG_IMAGE = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pu
 export default function FeedHeader({ lastUpdated, onRefresh, isRefreshing, articleCount }) {
   const [showDog, setShowDog] = useState(false);
 
+  useEffect(() => {
+    if (showDog) {
+      const timer = setTimeout(() => setShowDog(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showDog]);
+
   return (
     <div className="relative">
       {/* Background glow */}
