@@ -21,6 +21,8 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ARTICLES_PER_PAGE = 18;
   const queryClient = useQueryClient();
 
   const { data: articles = [], isLoading } = useQuery({
