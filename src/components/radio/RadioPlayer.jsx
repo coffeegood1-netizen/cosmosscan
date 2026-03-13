@@ -115,27 +115,74 @@ export default function RadioPlayer() {
     }
   };
 
+  // Minimized state — show mini-player if playing, otherwise just an icon
   if (!isExpanded) {
+    // Mini-player bar when playing
+    if (isPlaying && currentStation) {
+      return (
+        <div className="fixed bottom-4 right-4 z-50 bg-slate-950/95 backdrop-blur-xl border border-indigo-500/20 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden w-72">
+          <audio ref={audioRef} preload="none" />
+          <div className="flex items-center gap-3 px-3 py-2.5">
+            {/* Play/Pause */}
+            <button
+              onClick={togglePlay}
+              className="w-9 h-9 shrink-0 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center shadow-lg shadow-indigo-500/30 transition-all"
+            >
+              <Pause className="w-4 h-4" />
+            </button>
+
+            {/* Station info */}
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-medium text-white truncate">{currentStation.name}</p>
+              <div className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                <span className="text-[9px] text-slate-500">Live</span>
+              </div>
+            </div>
+
+            {/* Volume */}
+            <button
+              onClick={() => setIsMuted(!isMuted)}
+              className="text-slate-500 hover:text-slate-300 transition-colors shrink-0"
+            >
+              {isMuted || volume === 0 ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+            </button>
+
+            {/* Expand */}
+            <button
+              onClick={() => setIsExpanded(true)}
+              className="text-slate-500 hover:text-indigo-300 transition-colors shrink-0"
+              title="Expand"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // Idle icon button
     return (
-      <button
-        onClick={() => setIsExpanded(true)}
-        className="fixed bottom-4 right-4 z-50 bg-slate-900/90 backdrop-blur-sm border border-indigo-500/30 rounded-full p-3 shadow-lg shadow-indigo-500/10 hover:border-indigo-500/50 transition-all group"
-        title="Open Radio Player"
-      >
-        <Radio className="w-5 h-5 text-indigo-400 group-hover:text-indigo-300" />
-        {isPlaying && (
-          <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border border-slate-900 animate-pulse" />
-        )}
-      </button>
+      <div className="fixed bottom-4 right-4 z-50">
+        <audio ref={audioRef} preload="none" />
+        <button
+          onClick={() => setIsExpanded(true)}
+          className="bg-slate-900/90 backdrop-blur-sm border border-indigo-500/30 rounded-full p-3 shadow-lg shadow-indigo-500/10 hover:border-indigo-500/50 transition-all group"
+          title="Open Radio Player"
+        >
+          <Radio className="w-5 h-5 text-indigo-400 group-hover:text-indigo-300" />
+        </button>
+      </div>
     );
   }
 
+  // Expanded state
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-80 bg-slate-950/95 backdrop-blur-xl border border-indigo-500/20 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden">
+    <div className="fixed bottom-4 right-4 z-50 w-96 bg-slate-950/95 backdrop-blur-xl border border-indigo-500/20 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden">
       <audio ref={audioRef} preload="none" />
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-800/60">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800/60">
         <div className="flex items-center gap-2">
           <Radio className="w-4 h-4 text-indigo-400" />
           <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">Live Radio</span>
@@ -145,23 +192,24 @@ export default function RadioPlayer() {
         </div>
         <button
           onClick={() => setIsExpanded(false)}
-          className="text-slate-500 hover:text-slate-300 text-xs"
+          className="text-slate-500 hover:text-slate-300 transition-colors"
+          title="Minimize"
         >
-          minimize
+          <Minus className="w-4 h-4" />
         </button>
       </div>
 
       {/* Genre selector */}
-      <div className="flex gap-1 px-3 py-2 overflow-x-auto scrollbar-hide border-b border-slate-800/40">
+      <div className="flex flex-wrap gap-1.5 px-4 py-3 border-b border-slate-800/40">
         {GENRES.map(genre => (
           <button
             key={genre.id}
             onClick={() => { setActiveGenre(genre.id); setShowStations(false); }}
             className={cn(
-              "shrink-0 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full transition-all",
+              "text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full transition-all",
               activeGenre === genre.id
                 ? "bg-indigo-600/30 text-indigo-300 border border-indigo-500/40"
-                : "text-slate-500 hover:text-slate-300 border border-transparent"
+                : "text-slate-500 hover:text-slate-300 border border-slate-700/50 hover:border-slate-600/60"
             )}
           >
             {genre.icon} {genre.label}
@@ -170,28 +218,32 @@ export default function RadioPlayer() {
       </div>
 
       {/* Now playing */}
-      <div className="px-4 py-3">
+      <div className="px-5 py-4">
         {isLoading ? (
           <div className="flex items-center gap-2 text-slate-500 text-sm">
             <Loader2 className="w-4 h-4 animate-spin" />
             <span>Loading stations...</span>
           </div>
         ) : currentStation ? (
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              {currentStation.favicon && (
-                <img
-                  src={currentStation.favicon}
-                  alt=""
-                  className="w-6 h-6 rounded object-contain bg-slate-800"
-                  onError={(e) => { e.target.style.display = 'none'; }}
-                />
-              )}
-              <p className="text-sm font-medium text-white truncate flex-1">{currentStation.name}</p>
+          <div className="flex items-center gap-3">
+            {currentStation.favicon ? (
+              <img
+                src={currentStation.favicon}
+                alt=""
+                className="w-10 h-10 rounded-lg object-contain bg-slate-800 shrink-0"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+            ) : (
+              <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center shrink-0">
+                <Radio className="w-5 h-5 text-slate-600" />
+              </div>
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-semibold text-white truncate">{currentStation.name}</p>
+              <p className="text-[11px] text-slate-500 truncate">
+                {currentStation.country} · {currentStation.codec} {currentStation.bitrate}kbps
+              </p>
             </div>
-            <p className="text-[10px] text-slate-500 truncate">
-              {currentStation.country} · {currentStation.codec} {currentStation.bitrate}kbps
-            </p>
           </div>
         ) : (
           <p className="text-sm text-slate-500">No stations found</p>
@@ -199,19 +251,19 @@ export default function RadioPlayer() {
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-3 px-4 pb-3">
+      <div className="flex items-center gap-3 px-5 pb-4">
         {/* Play/Pause */}
         <button
           onClick={togglePlay}
           disabled={!currentStation}
           className={cn(
-            "w-10 h-10 rounded-full flex items-center justify-center transition-all",
+            "w-12 h-12 rounded-full flex items-center justify-center transition-all shrink-0",
             isPlaying
               ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/30"
               : "bg-slate-800 hover:bg-slate-700 text-slate-300"
           )}
         >
-          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
+          {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
         </button>
 
         {/* Skip */}
@@ -221,7 +273,7 @@ export default function RadioPlayer() {
           className="text-slate-500 hover:text-slate-300 transition-colors"
           title="Next station"
         >
-          <SkipForward className="w-4 h-4" />
+          <SkipForward className="w-5 h-5" />
         </button>
 
         {/* Volume */}
@@ -256,7 +308,7 @@ export default function RadioPlayer() {
 
       {/* Station list */}
       {showStations && (
-        <div className="border-t border-slate-800/60 max-h-48 overflow-y-auto">
+        <div className="border-t border-slate-800/60 max-h-64 overflow-y-auto">
           {stations.length === 0 && !isLoading && (
             <p className="text-xs text-slate-500 text-center py-4">No stations available</p>
           )}
@@ -265,12 +317,12 @@ export default function RadioPlayer() {
               key={station.stationuuid}
               onClick={() => selectStation(station)}
               className={cn(
-                "w-full text-left px-4 py-2 flex items-center gap-2 hover:bg-slate-800/60 transition-colors",
+                "w-full text-left px-5 py-2.5 flex items-center gap-3 hover:bg-slate-800/60 transition-colors",
                 currentStation?.stationuuid === station.stationuuid && "bg-indigo-600/10 border-l-2 border-indigo-500"
               )}
             >
               {station.favicon ? (
-                <img src={station.favicon} alt="" className="w-5 h-5 rounded object-contain bg-slate-800 shrink-0" onError={(e) => { e.target.style.display = 'none'; }} />
+                <img src={station.favicon} alt="" className="w-6 h-6 rounded object-contain bg-slate-800 shrink-0" onError={(e) => { e.target.style.display = 'none'; }} />
               ) : (
                 <Radio className="w-4 h-4 text-slate-600 shrink-0" />
               )}
