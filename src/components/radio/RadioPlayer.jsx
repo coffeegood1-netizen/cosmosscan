@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Play, Pause, Volume2, VolumeX, Radio, ChevronDown, Loader2, SkipForward, RefreshCw } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, Radio, ChevronDown, Loader2, SkipForward, Maximize2, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const GENRES = [
