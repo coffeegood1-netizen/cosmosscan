@@ -218,7 +218,7 @@ export default function RadioPlayer() {
         {GENRES.map(genre => (
           <button
             key={genre.id}
-            onClick={() => { setActiveGenre(genre.id); setShowStations(false); }}
+            onClick={() => { setActiveGenre(genre.id); setShowStations(genre.id === "coast"); }}
             className={cn(
               "text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full transition-all",
               activeGenre === genre.id
