@@ -99,7 +99,7 @@ export default function Home() {
     <div className="min-h-screen text-white relative">
       <AnimatedBackground />
       {/* Marquee */}
-      <Marquee articles={articles} />
+      <Marquee articles={articles} onArticleClick={setSelectedArticle} />
 
       {/* Main content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-black/50 rounded-2xl my-4 backdrop-blur-sm">
