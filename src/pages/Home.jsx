@@ -12,6 +12,8 @@ import EmptyState from "../components/feed/EmptyState";
 import FeedSourcesPanel from "../components/feed/FeedSourcesPanel";
 import AnimatedBackground from "../components/feed/AnimatedBackground";
 import ArticleModal from "../components/feed/ArticleModal";
+import FeedPagination from "../components/feed/FeedPagination";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("all");
