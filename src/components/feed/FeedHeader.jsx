@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Brain, RefreshCw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 
+const DOG_IMAGE = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b34f15f21ccf40e695b356/a1d8bc737_image.png";
+
 export default function FeedHeader({ lastUpdated, onRefresh, isRefreshing, articleCount }) {
+  const [showDog, setShowDog] = useState(false);
+
   return (
     <div className="relative">
       {/* Background glow */}
