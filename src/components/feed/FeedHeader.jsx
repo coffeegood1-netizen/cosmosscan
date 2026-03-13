@@ -17,10 +17,31 @@ export default function FeedHeader({ lastUpdated, onRefresh, isRefreshing, artic
         <div>
           <div className="flex items-center gap-3 mb-3">
             <div className="relative">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+              <div
+                className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 cursor-pointer hover:scale-110 transition-transform duration-200"
+                onClick={() => setShowDog(!showDog)}
+              >
                 <Brain className="w-6 h-6 text-white" />
               </div>
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-slate-950 animate-pulse" />
+
+              {/* Dog popup */}
+              {showDog && (
+                <div className="absolute left-14 bottom-0 flex items-end gap-2 z-50" style={{width: '220px'}}>
+                  {/* Speech bubble */}
+                  <div className="relative bg-white text-slate-800 text-sm font-semibold px-3 py-2 rounded-2xl rounded-bl-none shadow-xl whitespace-nowrap">
+                    Any RV News? 🔍
+                    <div className="absolute -left-2 bottom-2 w-0 h-0 border-t-8 border-t-transparent border-r-8 border-r-white border-b-0" />
+                  </div>
+                  {/* Dog */}
+                  <img
+                    src={DOG_IMAGE}
+                    alt="Dog"
+                    className="w-24 h-24 object-contain drop-shadow-2xl"
+                    style={{filter: 'drop-shadow(0 4px 16px rgba(0,0,0,0.5))'}}
+                  />
+                </div>
+              )}
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
